@@ -73,4 +73,8 @@ class Deck
     }
     return false;
   }
+  public boolean check_solution()
+  {
+    //check if the submitted cards are in the solution
+  }
 }
