@@ -20,14 +20,17 @@ class Game extends JPanel
   public static ArrayList<String> possible_characters= new ArrayList<String>(Arrays.asList("Professor Plum", "Mrs. White", "Mrs. Scarlett","Mrs. Peacock","Colonel Mustard","Mr. Green"));
   public Deck d;
   public static int num_players;
+  //we need this so the whole program knows who's turn it is
+  public static int current_player;
   boolean has_begun;
   final static Stack<String> holder= new Stack<String>();
 
   final static JFrame frame = new JFrame("Clue");
+  public static JPanel panel = new JPanel(new BorderLayout());
+  public static JToolBar toolBar = new JToolBar();
 
 
   public static JTextField field = new JTextField(20);
-  //public static JTextArea textArea=new JTextArea(5, 20);
   public static JTextPane textArea=new JTextPane();
   final static String newline = "\n";
 
@@ -35,13 +38,22 @@ class Game extends JPanel
   {
     super(new GridBagLayout());
     d= new Deck(num_players);
+    //FIXME: Return array of cards for each player or keep in class?
     has_begun=false;
     textArea.setEditable(false);
-  //  textArea.setFont(new Font("Serif", Font.PLAIN, 14));
-    //textArea.setLineWrap(true);
-    //textArea.setWrapStyleWord(true);
-    JScrollPane scrollPane = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,  JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
+    JScrollPane scrollPane = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,  JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    panel.add(toolBar,BorderLayout.PAGE_START);
+
+    toolBar.addSeparator(new Dimension(300, 0));
+
+    JButton notepad = new JButton("Show Notebook");
+
+    notepad.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            do_show_notebook();
+        }
+    });
     field.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -52,7 +64,11 @@ class Game extends JPanel
             // frame.dispose();
         }
     });
+    toolBar.add(notepad);
     GridBagConstraints c = new GridBagConstraints();
+      c.gridwidth = GridBagConstraints.REMAINDER;
+      c.fill = GridBagConstraints.HORIZONTAL;
+      add(toolBar, c);
           c.gridwidth = GridBagConstraints.REMAINDER;
 
 
@@ -61,12 +77,23 @@ class Game extends JPanel
           c.weightx = 1.0;
           c.weighty = 1.0;
           add(scrollPane, c);
-        //  scrollPane.setViewportView(textArea);
 
           c.weightx = 0;
           c.weighty = 0;
           c.fill = GridBagConstraints.HORIZONTAL;
           add(field, c);
+  }
+  public void do_show_notebook()
+  {
+    //d.show_notebook(current_player);
+    JFrame notepad_frame = new JFrame();
+    notepad_frame.setVisible(true);
+    notepad_frame.setSize(300,600);
+    JTextPane padArea=new JTextPane();
+    padArea.setText(d.show_notebook(1));
+    padArea.setEditable(false);
+    notepad_frame.add(padArea);
+    //FIXME: this needs to redraw if left open
   }
   public static void add(String s)
   {
@@ -110,7 +137,8 @@ class Game extends JPanel
        }
   public static void handleEvent(String input)
   {
-
+    //compares input agains key commands
+    //FIXME: maybe use this to check for notebook, roll, and guessing?
     input=input.toLowerCase();
     if(input.equals("begin"))
     {
@@ -156,11 +184,56 @@ class Game extends JPanel
       Person p=new Person(possible_characters.get(i));
       add(p.getBio()+newline+newline);
     }
-    add(newline+"You make note of each guests in your notebook. You can view this throughout the game by entering 'Notebook' or just 'N'.", Color.red);
+    add(newline+"You make note of each guests in your notebook. You can view this throughout the game by clicking the 'Show Notebook' button in your toolbar", Color.red);
+  }
+  public static void check_response(String response)
+  {
+    Player current=players.get(current_player);
+    if(response.equals("roll"))
+    {
+      //roll();
+    }
+    else if(response.equals("suggestion") && !current.getLocation().equals("Hall"))
+    {
+      //suggest();
+    }
+    else if(response.equals("accusation") && !current.getLocation().equals("Hall"))
+    {
+    //  accuse();
+    }
+    else
+    {
+      add("Please enter a valid command"+newline);
+      response=await_response().toLowerCase();
+      check_response(response);
+    }
   }
   public static void start_turns()
   {
+    boolean unsolved=true;
+    current_player=0;
+    String response;
     //while murder is unsolved, loop here somehow
+    //make sure to update current_player as we go
+    //while(game is still not solved)
+    //do turn
+    //increment player id, or reset it to the first player
+    while(unsolved)
+    {
+      Player current=players.get(current_player);
+      add(newline+newline+"It is Player "+(current_player+1)+"\'s turn."+newline);
+      add("You are currently in the "+current.getLocation()+". What do you want to do next?"+newline);
+      add(current.getMoves()+newline);
+      response=await_response().toLowerCase();
+      //Check response and do action
+      check_response(response);
+      //Next Player logic
+      current_player++;
+      if(current_player>num_players)
+      {
+        current_player=0;
+      }
+    }
   }
   public static void begin()
   {
@@ -219,7 +292,7 @@ class Game extends JPanel
              valid_input=false;
          }
       }
-      players.add(new Player(possible_characters.get(index-1)));
+      players.add(new Player(possible_characters.get(index-1), i));
       possible_characters.remove(index-1);
     }
     add(response+" players"+newline);

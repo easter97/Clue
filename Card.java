@@ -10,6 +10,7 @@ class Card
   public Card(String name)
   {
     this.name=name;
+    eliminated=false;
   }
   public boolean is_solution()
   {
@@ -26,6 +27,10 @@ class Card
   public void mark_eliminated()
   {
     eliminated=true;
+  }
+  public String getName()
+  {
+    return name;
   }
 }
 class Person extends Card
@@ -63,10 +68,7 @@ class Person extends Card
       bio="a real mysterious character.";
     }
   }
-  public String getName()
-  {
-    return name;
-  }
+
   public String getBio()
   {
     return bio;
