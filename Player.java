@@ -20,9 +20,17 @@ class Player
   {
     String moves="";
     //determines what moves a player can make based on Location
+    //FIXME: implement trapdoor logic
     if(location.getName()=="Hall")
     {
       moves+="   - Roll\n";
+    }
+    else if(location.getPassageway()!=null)
+    {
+      moves+="   - Roll\n";
+      moves+="   - Suggestion\n";
+      moves+="   - Accusation\n";
+      moves+="   - Secret Passageway to "+location.getPassageway()+"\n";
     }
     else
     {
@@ -31,5 +39,13 @@ class Player
       moves+="   - Accusation\n";
     }
     return moves;
+  }
+  public String getName()
+  {
+    return character.getName();
+  }
+  public void setLocation(String room)
+  {
+    location=new Room(room);
   }
 }

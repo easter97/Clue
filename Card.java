@@ -83,8 +83,40 @@ class Weapon extends Card
 }
 class Room extends Card
 {
+  String passageway;
   public Room(String name)
   {
     super(name);
+    if(name.equals("Kitchen"))
+    {
+      passageway="Study";
+    }
+    else if(name.equals("Study"))
+    {
+      passageway="Kitchen";
+    }
+    else if(name.equals("Lounge"))
+    {
+      passageway="Conservatory";
+    }
+    else if(name.equals("Conservatory"))
+    {
+      passageway="Lounge";
+    }
+    else
+    {
+      passageway=null;
+    }
+  }
+  public String getPassageway()
+  {
+    if(passageway!=null)
+    {
+      return passageway;
+    }
+    else
+    {
+      return null;
+    }
   }
 }

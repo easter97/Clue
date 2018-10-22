@@ -18,7 +18,7 @@ class Game extends JPanel
 {
   public static ArrayList<Player> players= new ArrayList<Player>();
   public static ArrayList<String> possible_characters= new ArrayList<String>(Arrays.asList("Professor Plum", "Mrs. White", "Mrs. Scarlett","Mrs. Peacock","Colonel Mustard","Mr. Green"));
-  public Deck d;
+  public static Deck d;
   public static int num_players;
   //we need this so the whole program knows who's turn it is
   public static int current_player;
@@ -105,7 +105,7 @@ class Game extends JPanel
       textArea.getStyledDocument().insertString(doc.getLength(), s, aset);
     }
     catch(Exception e) { System.out.println(e); }
-
+    textArea.setCaretPosition(textArea.getDocument().getLength());
   }
   public static void add(String s, Color c)
   {
@@ -117,7 +117,7 @@ class Game extends JPanel
       textArea.getStyledDocument().insertString(doc.getLength(), s, aset);
     }
     catch(Exception e) { System.out.println(e); }
-
+    textArea.setCaretPosition(textArea.getDocument().getLength());
   }
   public static void createAndShowGUI() {
            //Create and set up the window.
@@ -186,12 +186,69 @@ class Game extends JPanel
     }
     add(newline+"You make note of each guests in your notebook. You can view this throughout the game by clicking the 'Show Notebook' button in your toolbar", Color.red);
   }
+  public static void choose_room()
+  {
+    Player current=players.get(current_player);
+    add("Where would you like to go?"+newline);
+    add(d.getRooms(current.getLocation()));
+    String response=await_response();
+    response=response.toLowerCase();
+    if(response.equals(current.getLocation()))
+    {
+      add("You're already in the "+current.getLocation()+". Please choose another location."+newline, Color.red);
+    }
+    else if(response.equals("conservatory"))
+    {
+      current.setLocation("Conservatory");
+    }
+    else if(response.equals("billard room"))
+    {
+      current.setLocation("Billard Room");
+    }
+    else if(response.equals("kitchen"))
+    {
+      current.setLocation("Kitchen");
+    }
+    else if(response.equals("library"))
+    {
+      current.setLocation("Library");
+    }
+    else if(response.equals("study"))
+    {
+      current.setLocation("Study");
+    }
+    else if(response.equals("lounge"))
+    {
+      current.setLocation("Lounge");
+    }
+    else if(response.equals("dining room"))
+    {
+      current.setLocation("Dining Room");
+    }
+    else if(response.equals("ballroom"))
+    {
+      current.setLocation("Ballroom");
+    }
+    else
+    {
+      add("Please enter a valid selection."+newline, Color.red);
+      choose_room();
+    }
+  }
+  public static void roll()
+  {
+    //FIXME: implement roll logic
+    Player current=players.get(current_player);
+    //if you haven't rolled yet
+    choose_room();
+    add("You are now in the "+current.getLocation()+newline, Color.red);
+  }
   public static void check_response(String response)
   {
     Player current=players.get(current_player);
     if(response.equals("roll"))
     {
-      //roll();
+      roll();
     }
     else if(response.equals("suggestion") && !current.getLocation().equals("Hall"))
     {
@@ -220,8 +277,9 @@ class Game extends JPanel
     //increment player id, or reset it to the first player
     while(unsolved)
     {
+      //FIXME: Maybe print previous player's turn?? Have an update buffer that prints here?
       Player current=players.get(current_player);
-      add(newline+newline+"It is Player "+(current_player+1)+"\'s turn."+newline);
+      add(newline+newline+"It is "+current.getName()+"\'s turn."+newline, Color.red);
       add("You are currently in the "+current.getLocation()+". What do you want to do next?"+newline);
       add(current.getMoves()+newline);
       response=await_response().toLowerCase();
@@ -229,7 +287,7 @@ class Game extends JPanel
       check_response(response);
       //Next Player logic
       current_player++;
-      if(current_player>num_players)
+      if(current_player>=num_players)
       {
         current_player=0;
       }

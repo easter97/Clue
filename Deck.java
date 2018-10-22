@@ -146,4 +146,16 @@ class Deck
     //FIXME: If we have a card then it needs to be marked with an X, if another player has showed us a card, we need
     //to mark it with an X as well. Have a master deck of all cards, compared with player deck? Toolbar?
   }
+  public String getRooms(String location)
+  {
+    String room_list="";
+    for(int i=0; i<const_room_deck.size(); i++)
+    {
+      if(!const_room_deck.get(i).getName().equals(location) && !const_room_deck.get(i).getName().equals("Hall"))
+      {
+        room_list+=const_room_deck.get(i).getName()+"\n";
+      }
+    }
+    return room_list;
+  }
 }
