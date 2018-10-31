@@ -352,9 +352,9 @@ class Game extends JPanel
         add("Your suggestion could not be disproved"+newline, Color.blue);
         disproved=true;
         break;
-      }      
+      }
       add("It is "+players.get(disprove_player).getName()+"'s turn to disprove "+players.get(current_player).getName()+"'s suggestion."+newline, Color.red);
-      //FIXME: Check the player deck for each 3 elements of suggestion, if more than one exists, allow the player to pick which one they want to show
+      //FIXME: Check the player deck for each 3 elements of suggestion, if more than one exists
       disprove_player++;
     }
   }
