@@ -18,6 +18,7 @@ class Game extends JPanel
 {
   public static ArrayList<Player> players= new ArrayList<Player>();
   public static ArrayList<String> possible_characters= new ArrayList<String>(Arrays.asList("Professor Plum", "Mrs. White", "Mrs. Scarlett","Mrs. Peacock","Colonel Mustard","Mr. Green"));
+  public static ArrayList<String> weapons= new ArrayList<String>(Arrays.asList("Candlestick", "Dumbell", "Lead Pipe","Revolver","Rope","Wrench"));
   public static Deck d;
   public static int num_players;
   //we need this so the whole program knows who's turn it is
@@ -243,6 +244,87 @@ class Game extends JPanel
     choose_room();
     add("You are now in the "+current.getLocation()+newline, Color.red);
   }
+
+  public static void suggest()
+  {
+    Player current=players.get(current_player);
+
+    add("Which player would you like to make a suggestion about? ");
+    //list other players
+    for(int i = 0; i < possible_characters.size(); i++)
+    {
+      if(possible_characters.get(i).equals(current.getName())) //skip current player
+      {
+        continue;
+      }
+        add("   -" + possible_characters.get(i)+newline);
+    }
+    String playerSuggested=await_response();
+    playerSuggested=playerSuggested.toLowerCase();
+
+    add("What weapon do you think " + playerSuggested + " used to strike?" + newline);
+    //list weapons
+    for(int i = 0; i < weapons.size(); i++)
+    {
+      add("   -" + weapons.get(i)+newline);
+    }
+    String weaponSuggested=await_response();
+    weaponSuggested=weaponSuggested.toLowerCase();
+
+    add(newline + current.getName() + " has suggested that " + playerSuggested + " committed the murder with the " + weaponSuggested);
+
+    //FIXME: implement following lines
+    //loop through players to see if they can disporove the suggestion
+    //if no one disproves, player may make Accusation
+    //else, exit and continue game
+
+  }
+
+  public static void accuse()
+  {
+    Player current=players.get(current_player);
+
+    add("Which player would you like to accuse? ");
+    //list other players
+    for(int i = 0; i < possible_characters.size(); i++)
+    {
+      if(possible_characters.get(i).equals(current.getName())) //skip current player
+      {
+        continue;
+      }
+        add("   -" + possible_characters.get(i)+newline);
+    }
+    String playerAccused=await_response();
+    playerAccused=playerAccused.toLowerCase();
+
+    add("What weapon do you think " + playerAccused + " used to commit the murder?" + newline);
+    //list weapons
+    for(int i = 0; i < weapons.size(); i++)
+    {
+      add("   -" + weapons.get(i)+newline);
+    }
+    String weaponSuggested=await_response();
+    weaponSuggested=weaponSuggested.toLowerCase();
+
+    add("In what room do you think the murder took place?" + newline);
+    ArrayList<String> rooms = d.rooms;
+    for(int i = 0; i < rooms.size(); i++)
+    {
+      add("   -" + rooms.get(i)+newline);
+    }
+
+    String roomSuggested=await_response();
+    roomSuggested=roomSuggested.toLowerCase();
+
+    add(current.getName() + " has made an accusation stating that " + playerAccused + " committed the murder in the " + roomSuggested + " using the " + weaponSuggested + newline);
+
+    add("The accusation is: INCORRECT");
+    //FIXME: implement the logic below
+    // check if the accusation is correct by checking the 3 solution cards
+    // if accusation is correct, current player wins
+    // else, current player cannot win anymore
+  }
+
   public static void check_response(String response)
   {
     Player current=players.get(current_player);
@@ -252,11 +334,11 @@ class Game extends JPanel
     }
     else if(response.equals("suggestion") && !current.getLocation().equals("Hall"))
     {
-      //suggest();
+      suggest();
     }
     else if(response.equals("accusation") && !current.getLocation().equals("Hall"))
     {
-    //  accuse();
+      accuse();
     }
     else
     {
@@ -279,6 +361,7 @@ class Game extends JPanel
     {
       //FIXME: Maybe print previous player's turn?? Have an update buffer that prints here?
       Player current=players.get(current_player);
+      add(newline+newline+"---------------- New Turn ----------------");
       add(newline+newline+"It is "+current.getName()+"\'s turn."+newline, Color.red);
       add("You are currently in the "+current.getLocation()+". What do you want to do next?"+newline);
       add(current.getMoves()+newline);
@@ -291,6 +374,7 @@ class Game extends JPanel
       {
         current_player=0;
       }
+      add(newline+newline+"---------------- End of " + current.getName() + "\'s turn. ----------------");
     }
   }
   public static void begin()
