@@ -358,6 +358,103 @@ class Game extends JPanel
       disprove_player++;
     }
   }
+  public static void accuse()
+  {
+    Person accused_murderer;
+    Weapon accused_weapon;
+    Room accused_room;
+    boolean valid_input=false;
+    int index=-1;
+    int disprove_player=current_player+1;
+    boolean disproved=false;
+
+    while( !valid_input )
+    {
+      add("Who do you accuse of murder?"+newline, Color.red);
+      add(d.show_people());
+      String input=await_response();
+
+      try
+      {
+        index=Integer.parseInt(input);
+        index=index-1;
+        if(index>5 || index<0)
+        {
+          valid_input=false;
+          add("Please enter a valid number."+newline, Color.red);
+        }
+        else
+        {
+          valid_input=true;
+        }
+      }
+      catch (NumberFormatException e)
+       {
+           valid_input=false;
+       }
+
+    }
+    accused_murderer=d.get_people(index);
+    valid_input=false;
+    while( !valid_input )
+    {
+      add("What weapon do you think "+accused_murderer.getName()+" used?"+newline, Color.red);
+      add(d.show_weapons());
+      String input=await_response();
+
+      try
+      {
+        index=Integer.parseInt(input);
+        index=index-1;
+        if(index>5 || index<0)
+        {
+          valid_input=false;
+          add("Please enter a valid number."+newline, Color.red);
+        }
+        else
+        {
+          valid_input=true;
+        }
+      }
+      catch (NumberFormatException e)
+       {
+           valid_input=false;
+       }
+
+    }
+    accused_weapon=d.get_weapons(index);
+    valid_input=false;
+    while( !valid_input )
+    {
+      add("Were do you think "+accused_murderer.getName()+" committed the murder?"+newline, Color.red);
+      add(d.show_rooms());
+      String input=await_response();
+
+      try
+      {
+        index=Integer.parseInt(input);
+        index=index-1;
+        if(index>8 || index<0)
+        {
+          valid_input=false;
+          add("Please enter a valid number."+newline, Color.red);
+        }
+        else
+        {
+          valid_input=true;
+        }
+      }
+      catch (NumberFormatException e)
+       {
+           valid_input=false;
+       }
+
+    }
+    accused_room=d.get_rooms(index);
+    //FIXME: Push this suggestion back to the buffer
+    add(players.get(current_player).getName()+": I think it was "+accused_murderer.getName()+" with the "+accused_weapon.getName()+" in the "+accused_room.getName()+newline, Color.blue);
+    //FIXME: Check against solution deck, player is out if wrong, wins if right
+  }
   public static void check_response(String response)
   {
     Player current=players.get(current_player);

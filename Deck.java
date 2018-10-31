@@ -81,25 +81,27 @@ class Deck
     //FIXME: Deal evenly to each deck, then add the player_decks arraylist
     int current_player=0;
     boolean initial_loop=true;
-    while(solution_deck.size()>0)
-    {
-      if(current_player>=num_players)
-      {
-        current_player=0;
-        initial_loop=false;
-      }
-      if(initial_loop)
-      {
-        ArrayList<Card> current_deck=new ArrayList<Card>();
-        current_deck.add(solution_deck.get(0));
-        solution_deck.remove(0);
-        player_decks.add(current_deck);
-      }
-      else{
-        ArrayList<Card> current_deck=player_decks.get(current_player);
-      }
-      current_player++;
-    }
+    // while(solution_deck.size()>0)
+    // {
+    //   if(current_player>=num_players)
+    //   {
+    //     current_player=0;
+    //     initial_loop=false;
+    //   }
+    //   if(initial_loop)
+    //   {
+    //     ArrayList<Card> current_deck=new ArrayList<Card>();
+    //     current_deck.add(solution_deck.get(0));
+    //     solution_deck.remove(0);
+    //     player_decks.add(current_deck);
+    //   }
+    //   else{
+    //     player_decks.get(current_player).add(solution_deck.get(0));
+    //     solution_deck.remove(0);
+    //   }
+    //   current_player++;
+    // }
+
   }
   public boolean is_in(Card card, ArrayList<Card> list)
   {
