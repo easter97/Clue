@@ -160,7 +160,7 @@ class Game extends JPanel
     }
 
        String input = holder.pop();
-       add(input+newline+newline, Color.green);
+       add(input+newline+newline, Color.blue);
        textArea.setCaretPosition(textArea.getDocument().getLength());
        field.setText("");
        //before we return we need to see if input is something like 'help'
@@ -243,6 +243,121 @@ class Game extends JPanel
     choose_room();
     add("You are now in the "+current.getLocation()+newline, Color.red);
   }
+  public static void suggest()
+  {
+    Person suggested_murderer;
+    Weapon suggested_weapon;
+    Room suggested_room;
+    boolean valid_input=false;
+    int index=-1;
+    int disprove_player=current_player+1;
+    boolean disproved=false;
+
+    while( !valid_input )
+    {
+      add("Who do you think committed the murder?"+newline, Color.red);
+      add(d.show_people());
+      String input=await_response();
+
+      try
+      {
+        index=Integer.parseInt(input);
+        index=index-1;
+        if(index>5 || index<0)
+        {
+          valid_input=false;
+          add("Please enter a valid number."+newline, Color.red);
+        }
+        else
+        {
+          valid_input=true;
+        }
+      }
+      catch (NumberFormatException e)
+       {
+           valid_input=false;
+       }
+
+    }
+    suggested_murderer=d.get_people(index);
+    valid_input=false;
+    while( !valid_input )
+    {
+      add("What weapon do you think "+suggested_murderer.getName()+" used?"+newline, Color.red);
+      add(d.show_weapons());
+      String input=await_response();
+
+      try
+      {
+        index=Integer.parseInt(input);
+        index=index-1;
+        if(index>5 || index<0)
+        {
+          valid_input=false;
+          add("Please enter a valid number."+newline, Color.red);
+        }
+        else
+        {
+          valid_input=true;
+        }
+      }
+      catch (NumberFormatException e)
+       {
+           valid_input=false;
+       }
+
+    }
+    suggested_weapon=d.get_weapons(index);
+    valid_input=false;
+    while( !valid_input )
+    {
+      add("Were do you think "+suggested_murderer.getName()+" committed the murder?"+newline, Color.red);
+      add(d.show_rooms());
+      String input=await_response();
+
+      try
+      {
+        index=Integer.parseInt(input);
+        index=index-1;
+        if(index>8 || index<0)
+        {
+          valid_input=false;
+          add("Please enter a valid number."+newline, Color.red);
+        }
+        else
+        {
+          valid_input=true;
+        }
+      }
+      catch (NumberFormatException e)
+       {
+           valid_input=false;
+       }
+
+    }
+    suggested_room=d.get_rooms(index);
+    //FIXME: Push this suggestion back to the buffer
+    add(players.get(current_player).getName()+": I think it was "+suggested_murderer.getName()+" with the "+suggested_weapon.getName()+" in the "+suggested_room.getName()+newline, Color.blue);
+    add("Now your fellow detectives will see if they can disprove your suggestion"+newline, Color.red);
+
+    while(disprove_player!=current_player)
+    {
+      if(disprove_player>=num_players)
+      {
+        disprove_player=0;
+      }
+
+      if(disprove_player==current_player)
+      {
+        add("Your suggestion could not be disproved"+newline, Color.blue);
+        disproved=true;
+        break;
+      }      
+      add("It is "+players.get(disprove_player).getName()+"'s turn to disprove "+players.get(current_player).getName()+"'s suggestion."+newline, Color.red);
+      //FIXME: Check the player deck for each 3 elements of suggestion, if more than one exists, allow the player to pick which one they want to show
+      disprove_player++;
+    }
+  }
   public static void check_response(String response)
   {
     Player current=players.get(current_player);
@@ -252,7 +367,7 @@ class Game extends JPanel
     }
     else if(response.equals("suggestion") && !current.getLocation().equals("Hall"))
     {
-      //suggest();
+      suggest();
     }
     else if(response.equals("accusation") && !current.getLocation().equals("Hall"))
     {

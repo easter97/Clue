@@ -79,7 +79,27 @@ class Deck
     //Shuffle the deck before we deal
     Collections.shuffle(solution_deck);
     //FIXME: Deal evenly to each deck, then add the player_decks arraylist
-
+    int current_player=0;
+    boolean initial_loop=true;
+    while(solution_deck.size>0)
+    {
+      if(current_player>=num_players)
+      {
+        current_player=0;
+        initial_loop=false;
+      }
+      if(initial_loop)
+      {
+        ArrayList<Card> current_deck=new ArrayList<Card>();
+        current_deck.add(solution_deck.get(0));
+        solution_deck.remove(0);
+        player_decks.add(current_deck);
+      }
+      else{
+        ArrayList<Card> current_deck=player_decks.get(current_player);
+      }
+      current_player++
+    }
   }
   public boolean is_in(Card card, ArrayList<Card> list)
   {
@@ -94,6 +114,48 @@ class Deck
   {
     //FIXME: check if the submitted cards are in the solution
     return false;
+  }
+  public String show_people()
+  {
+    String people="";
+    for(int i=0; i<const_person_deck.size(); i++)
+    {
+      Card character=const_person_deck.get(i);
+      people+="("+(i+1)+") "+character.getName()+"\n";
+    }
+    return people;
+  }
+  public Person get_people(int index)
+  {
+    return const_person_deck.get(index);
+  }
+  public String show_weapons()
+  {
+    String weapons="";
+    for(int i=0; i<const_weapon_deck.size(); i++)
+    {
+      Card weapon=const_weapon_deck.get(i);
+      weapons+="("+(i+1)+") "+weapon.getName()+"\n";
+    }
+    return weapons;
+  }
+  public Weapon get_weapons(int index)
+  {
+    return const_weapon_deck.get(index);
+  }
+  public String show_rooms()
+  {
+    String rooms="";
+    for(int i=0; i<const_room_deck.size(); i++)
+    {
+      Card room=const_room_deck.get(i);
+      rooms+="("+(i+1)+") "+room.getName()+"\n";
+    }
+    return rooms;
+  }
+  public Room get_rooms(int index)
+  {
+    return const_room_deck.get(index);
   }
   public String show_notebook(int player_id)
   {
