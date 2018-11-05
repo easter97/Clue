@@ -21,7 +21,7 @@ class Game extends JPanel
   public static Deck d;
   public static int num_players;
   //we need this so the whole program knows who's turn it is
-  public static int current_player;
+  public static int current_player=-1;
   boolean has_begun;
   final static Stack<String> holder= new Stack<String>();
 
@@ -37,7 +37,6 @@ class Game extends JPanel
   public Game()
   {
     super(new GridBagLayout());
-    d= new Deck(num_players);
     //FIXME: Return array of cards for each player or keep in class?
     has_begun=false;
     textArea.setEditable(false);
@@ -90,7 +89,13 @@ class Game extends JPanel
     notepad_frame.setVisible(true);
     notepad_frame.setSize(300,600);
     JTextPane padArea=new JTextPane();
-    padArea.setText(d.show_notebook(1));
+    if(current_player==-1)
+    {
+      padArea.setText("You cannot view the detective notebook at this time");
+    }
+    else{
+      padArea.setText(d.show_notebook(current_player));
+    }
     padArea.setEditable(false);
     notepad_frame.add(padArea);
     //FIXME: this needs to redraw if left open
@@ -309,33 +314,8 @@ class Game extends JPanel
     }
     suggested_weapon=d.get_weapons(index);
     valid_input=false;
-    while( !valid_input )
-    {
-      add("Were do you think "+suggested_murderer.getName()+" committed the murder?"+newline, Color.red);
-      add(d.show_rooms());
-      String input=await_response();
 
-      try
-      {
-        index=Integer.parseInt(input);
-        index=index-1;
-        if(index>8 || index<0)
-        {
-          valid_input=false;
-          add("Please enter a valid number."+newline, Color.red);
-        }
-        else
-        {
-          valid_input=true;
-        }
-      }
-      catch (NumberFormatException e)
-       {
-           valid_input=false;
-       }
-
-    }
-    suggested_room=d.get_rooms(index);
+    suggested_room=new Room(players.get(current_player).getLocation());
     //FIXME: Push this suggestion back to the buffer
     add(players.get(current_player).getName()+": I think it was "+suggested_murderer.getName()+" with the "+suggested_weapon.getName()+" in the "+suggested_room.getName()+newline, Color.blue);
     add("Now your fellow detectives will see if they can disprove your suggestion"+newline, Color.red);
@@ -355,6 +335,19 @@ class Game extends JPanel
       }
       add("It is "+players.get(disprove_player).getName()+"'s turn to disprove "+players.get(current_player).getName()+"'s suggestion."+newline, Color.red);
       //FIXME: Check the player deck for each 3 elements of suggestion, if more than one exists
+      int num_cards=d.test_disprove(disprove_player, suggested_murderer, suggested_weapon, suggested_room);
+      if(num_cards>0)
+      {
+        //they can disprove and we break
+        add(players.get(disprove_player).getName()+" can disprove, let this player press enter to select what evidence to reveal."+newline);
+        await_response();
+
+        break;
+      }
+      else{
+        add(players.get(disprove_player).getName()+" can not disprove"+newline, Color.red);
+      }
+      //otherwise keep going
       disprove_player++;
     }
   }
@@ -531,7 +524,7 @@ class Game extends JPanel
             valid_input=false;
         }
      }
-
+     d= new Deck(num_players);
     for(int i=1; i<num_players+1; i++)
     {
       add("Player "+i+" , choose your character by entering the corresponding number:"+newline);

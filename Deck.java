@@ -22,6 +22,7 @@ class Deck
   {
     //create deck
     num_players=players;
+
     for(int i=0; i<people.size(); i++)
     {
       Person p=new Person(people.get(i));
@@ -40,8 +41,10 @@ class Deck
       room_deck.add(p);
       const_room_deck.add(p);
     }
+
     //select solution from Deck
     select_solution();
+
     //deal the remaining cards to the players
     deal();
   }
@@ -58,59 +61,67 @@ class Deck
     person_deck.remove(personRand);
     room_deck.remove(roomRand);
     weapon_deck.remove(weaponRand);
+    //DEBUG: To see the solution
+    System.out.println("Solution:");
+    for(int i=0; i<solution_deck.size(); i++)
+    {
+      System.out.println(solution_deck.get(i).getName());
+    }
   }
   public void deal()
   {
     for(int i=0; i<person_deck.size(); i++)
     {
-      solution_deck.add(person_deck.get(i));
-      person_deck.remove(i);
+      main_deck.add(person_deck.get(i));
+      // person_deck.remove(i);
     }
     for(int i=0; i<weapon_deck.size(); i++)
     {
-      solution_deck.add(weapon_deck.get(i));
-      weapon_deck.remove(i);
+      main_deck.add(weapon_deck.get(i));
+      // weapon_deck.remove(i);
     }
     for(int i=0; i<room_deck.size(); i++)
     {
-      solution_deck.add(room_deck.get(i));
-      room_deck.remove(i);
+      main_deck.add(room_deck.get(i));
+      // room_deck.remove(i);
     }
+
     //Shuffle the deck before we deal
-    Collections.shuffle(solution_deck);
-    //FIXME: Deal evenly to each deck, then add the player_decks arraylist
+    Collections.shuffle(main_deck);
+
     int current_player=0;
     boolean initial_loop=true;
-    // while(solution_deck.size()>0)
-    // {
-    //   if(current_player>=num_players)
-    //   {
-    //     current_player=0;
-    //     initial_loop=false;
-    //   }
-    //   if(initial_loop)
-    //   {
-    //     ArrayList<Card> current_deck=new ArrayList<Card>();
-    //     current_deck.add(solution_deck.get(0));
-    //     solution_deck.remove(0);
-    //     player_decks.add(current_deck);
-    //   }
-    //   else{
-    //     player_decks.get(current_player).add(solution_deck.get(0));
-    //     solution_deck.remove(0);
-    //   }
-    //   current_player++;
-    // }
 
-  }
-  public boolean is_in(Card card, ArrayList<Card> list)
-  {
-    //FIXME: not sure if this helps, maybe we should compare the name string from the cards??
-    if(list.indexOf(card)>-1)
+    while(main_deck.size()>0)
     {
-      return true;
+      if(current_player>=num_players)
+      {
+        current_player=0;
+        initial_loop=false;
+      }
+      if(initial_loop)
+      {
+        ArrayList<Card> current_deck=new ArrayList<Card>();
+        current_deck.add(main_deck.get(0));
+        main_deck.remove(0);
+        player_decks.add(current_deck);
+      }
+      else{
+        player_decks.get(current_player).add(main_deck.get(0));
+        main_deck.remove(0);
+      }
+      current_player++;
     }
-    return false;
+    //DEBUG: to check player decks
+    for(int i=0; i<player_decks.size(); i++)
+    {
+      System.out.println("\nPlayer "+i+"'s Deck:");
+      ArrayList<Card> current_deck=player_decks.get(i);
+      for(int j=0; j<current_deck.size(); j++)
+      {
+        System.out.println(current_deck.get(j).getName());
+      }
+    }
   }
   public boolean check_solution()
   {
@@ -159,16 +170,28 @@ class Deck
   {
     return const_room_deck.get(index);
   }
+  public boolean is_in(String name, ArrayList<Card> list)
+  {
+    //FIXME: not sure if this helps, maybe we should compare the name string from the cards??
+    for(int i=0; i<list.size();i++)
+    {
+      if(list.get(i).getName().equals(name))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
   public String show_notebook(int player_id)
   {
-    //ArrayList<Card> current_deck=player_decks.get(player_id);
+    ArrayList<Card> current_deck=player_decks.get(player_id);
     String notebook="";
     String mark;
     notebook+="\nPeople\n";
     for(int i=0; i<const_person_deck.size(); i++)
     {
       Card character=const_person_deck.get(i);
-      if(character.is_eliminated())
+      if(is_in(character.getName(), current_deck))
       {
         mark="X";
       }
@@ -182,7 +205,7 @@ class Deck
     for(int i=0; i<const_room_deck.size(); i++)
     {
       Card room=const_room_deck.get(i);
-      if(room.is_eliminated())
+      if(is_in(room.getName(), current_deck))
       {
         mark="X";
       }
@@ -196,7 +219,7 @@ class Deck
     for(int i=0; i<const_weapon_deck.size(); i++)
     {
       Card weapon=const_weapon_deck.get(i);
-      if(weapon.is_eliminated())
+      if(is_in(weapon.getName(), current_deck))
       {
         mark="X";
       }
@@ -221,5 +244,23 @@ class Deck
       }
     }
     return room_list;
+  }
+  public int test_disprove(int disprove_player, Person suggested_murderer, Weapon suggested_weapon, Room suggested_room)
+  {
+    //Returns number of matching cards they have to the suggestion
+    int num_cards=0;
+    if(is_in(suggested_murderer.getName(), player_decks.get(disprove_player)))
+    {
+      num_cards++;
+    }
+    if(is_in(suggested_weapon.getName(), player_decks.get(disprove_player)))
+    {
+      num_cards++;
+    }
+    if(is_in(suggested_room.getName(), player_decks.get(disprove_player)))
+    {
+      num_cards++;
+    }
+    return num_cards;
   }
 }
