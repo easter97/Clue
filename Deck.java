@@ -182,6 +182,18 @@ class Deck
     }
     return false;
   }
+  public Card get_card(String name, ArrayList<Card> list)
+  {
+    //FIXME: not sure if this helps, maybe we should compare the name string from the cards??
+    for(int i=0; i<list.size();i++)
+    {
+      if(list.get(i).getName().equals(name))
+      {
+        return list.get(i);
+      }
+    }
+    return null;
+  }
   public String show_notebook(int player_id)
   {
     ArrayList<Card> current_deck=player_decks.get(player_id);
@@ -262,5 +274,31 @@ class Deck
       num_cards++;
     }
     return num_cards;
+  }
+  public ArrayList<Card> get_disprove(int disprove_player, Person suggested_murderer, Weapon suggested_weapon, Room suggested_room)
+  {
+    ArrayList<Card> disprove_options=new ArrayList<Card>();
+    //Returns number of matching cards they have to the suggestion
+    Card current=get_card(suggested_murderer.getName(), player_decks.get(disprove_player));
+    if(current!=null)
+    {
+      disprove_options.add(current);
+    }
+    current=get_card(suggested_weapon.getName(), player_decks.get(disprove_player));
+    if(current!=null)
+    {
+      disprove_options.add(current);
+    }
+    current=get_card(suggested_room.getName(), player_decks.get(disprove_player));
+    if(current!=null)
+    {
+      disprove_options.add(current);
+    }
+    return disprove_options;
+  }
+  public void disprove(int current_player, Card evidence)
+  {
+    //add evidence to deck, and consequently to notebook.
+    player_decks.get(current_player).add(evidence);
   }
 }

@@ -314,7 +314,7 @@ class Game extends JPanel
     }
     suggested_weapon=d.get_weapons(index);
     valid_input=false;
-
+    //They have to make a suggestion about the room they are currently in
     suggested_room=new Room(players.get(current_player).getLocation());
     //FIXME: Push this suggestion back to the buffer
     add(players.get(current_player).getName()+": I think it was "+suggested_murderer.getName()+" with the "+suggested_weapon.getName()+" in the "+suggested_room.getName()+newline, Color.blue);
@@ -341,7 +341,47 @@ class Game extends JPanel
         //they can disprove and we break
         add(players.get(disprove_player).getName()+" can disprove, let this player press enter to select what evidence to reveal."+newline);
         await_response();
+        clear_screen();
+        //set current player to be disprove player, temporarily!
+        int true_player=current_player;
+        current_player=disprove_player;
+        //list disproved cards, let player pick
+        add("What evidence would you like to reveal to "+players.get(true_player).getName()+"?"+newline, Color.red);
+        ArrayList<Card> disproven=d.get_disprove(disprove_player, suggested_murderer, suggested_weapon, suggested_room);
+        for(int i=0; i<disproven.size(); i++)
+        {
+          add("("+(i+1)+") "+disproven.get(i).getName()+newline);
+        }
+        while( !valid_input )
+        {
+          String input=await_response();
 
+          try
+          {
+            index=Integer.parseInt(input);
+            index=index-1;
+            if(index>disproven.size() || index<0)
+            {
+              valid_input=false;
+              add("Please enter a valid number."+newline, Color.red);
+            }
+            else
+            {
+              valid_input=true;
+            }
+          }
+          catch (NumberFormatException e)
+           {
+               valid_input=false;
+           }
+
+        }
+        d.disprove(true_player, disproven.get(index));
+        current_player=true_player;
+        clear_screen();
+        add(players.get(disprove_player).getName()+" disproved your solution."+newline);
+        //FIXME: Add alibi here!
+        add("This evidence has been marked in your notebook, press enter to end your turn."+newline, Color.red);
         break;
       }
       else{
