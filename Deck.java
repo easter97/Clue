@@ -301,4 +301,15 @@ class Deck
     //add evidence to deck, and consequently to notebook.
     player_decks.get(current_player).add(evidence);
   }
+  public boolean check_solution(Card accused_murderer, Card accused_weapon, Card accused_room)
+  {
+    if(is_in(accused_murderer.getName(), solution_deck) && is_in(accused_weapon.getName(), solution_deck) && is_in(accused_room.getName(), solution_deck))
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
 }

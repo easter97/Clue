@@ -10,7 +10,7 @@ class Player
     //Character is a person so that we can access bio and other person classes
     character=new Person(char_name);
     id=index;
-    location=new Room("Hall");
+    location=new Room("Grand Staircase");
   }
   public String getLocation()
   {
@@ -21,7 +21,7 @@ class Player
     String moves="";
     //determines what moves a player can make based on Location
     //FIXME: implement trapdoor logic
-    if(location.getName()=="Hall")
+    if(location.getName()=="Grand Staircase" || location.getName()=="Hallway")
     {
       moves+="   - Roll\n";
     }

@@ -33,6 +33,7 @@ class Game extends JPanel
   public static JTextField field = new JTextField(20);
   public static JTextPane textArea=new JTextPane();
   final static String newline = "\n";
+  public static boolean unsolved=true;
 
   public Game()
   {
@@ -391,7 +392,7 @@ class Game extends JPanel
       disprove_player++;
     }
   }
-  public static void accuse()
+  public static boolean accuse()
   {
     Person accused_murderer;
     Weapon accused_weapon;
@@ -487,6 +488,7 @@ class Game extends JPanel
     //FIXME: Push this suggestion back to the buffer
     add(players.get(current_player).getName()+": I think it was "+accused_murderer.getName()+" with the "+accused_weapon.getName()+" in the "+accused_room.getName()+newline, Color.blue);
     //FIXME: Check against solution deck, player is out if wrong, wins if right
+    return d.check_solution(accused_murderer, accused_weapon, accused_room);
   }
   public static void check_response(String response)
   {
@@ -501,7 +503,15 @@ class Game extends JPanel
     }
     else if(response.equals("accusation") && !current.getLocation().equals("Hall"))
     {
-    //  accuse();
+     boolean result=accuse();
+     if(result)
+     {
+       unsolved=false;
+       add("Game Over");
+     }
+     else{
+       add("Incorrect Accusation");
+     }
     }
     else
     {
@@ -512,7 +522,6 @@ class Game extends JPanel
   }
   public static void start_turns()
   {
-    boolean unsolved=true;
     current_player=0;
     String response;
     //while murder is unsolved, loop here somehow
