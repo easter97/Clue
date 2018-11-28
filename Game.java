@@ -12,6 +12,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 
 class Game extends JPanel
@@ -189,11 +191,15 @@ class Game extends JPanel
       add(possible_characters.get(i)+", ");
       Person p=new Person(possible_characters.get(i));
       add(p.getBio()+newline+newline);
+      //FIXME: Press enter to continue, add second bio parts
     }
-    add(newline+"You make note of each guests in your notebook. You can view this throughout the game by clicking the 'Show Notebook' button in your toolbar", Color.red);
+    add(newline+"You make note of each guests in your notebook. You can view this throughout the game by clicking the 'Show Notebook' button in your toolbar"+newline, Color.red);
+    add("Press enter to continue..."+newline, Color.red);
+    await_response();
   }
   public static void choose_room()
   {
+    //FIXME: set the destination location, achevied with dest roll >= current roll
     Player current=players.get(current_player);
     add("Where would you like to go?"+newline);
     add(d.getRooms(current.getLocation()));
@@ -205,49 +211,93 @@ class Game extends JPanel
     }
     else if(response.equals("conservatory"))
     {
-      current.setLocation("Conservatory");
+      current.setDestLocation("Conservatory");
     }
     else if(response.equals("billard room"))
     {
-      current.setLocation("Billard Room");
+      current.setDestLocation("Billard Room");
     }
     else if(response.equals("kitchen"))
     {
-      current.setLocation("Kitchen");
+      current.setDestLocation("Kitchen");
     }
     else if(response.equals("library"))
     {
-      current.setLocation("Library");
+      current.setDestLocation("Library");
     }
     else if(response.equals("study"))
     {
-      current.setLocation("Study");
+      current.setDestLocation("Study");
     }
     else if(response.equals("lounge"))
     {
-      current.setLocation("Lounge");
+      current.setDestLocation("Lounge");
     }
     else if(response.equals("dining room"))
     {
-      current.setLocation("Dining Room");
+      current.setDestLocation("Dining Room");
     }
     else if(response.equals("ballroom"))
     {
-      current.setLocation("Ballroom");
+      current.setDestLocation("Ballroom");
+    }
+    else if(response.equals("hall"))
+    {
+      current.setDestLocation("Hall");
     }
     else
     {
       add("Please enter a valid selection."+newline, Color.red);
       choose_room();
     }
+    current.setLocation("Hallway"); //in transit!
+    current.setRoll(0);
   }
   public static void roll()
   {
     //FIXME: implement roll logic
     Player current=players.get(current_player);
-    //if you haven't rolled yet
-    choose_room();
-    add("You are now in the "+current.getLocation()+newline, Color.red);
+    if(current.getRoll()==-1)
+    {
+      //You haven't rolled yet
+      choose_room();
+    }
+    add("You need "+(current.getDestRoll()-current.getRoll())+" paces to get to the "+current.getDestLocation()+newline);
+
+    ArrayList<Integer> die_faces = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6));
+
+    Random rand = new Random();
+    int rand_num = rand.nextInt(6-1+1) + 1;
+    String file_path = "die"+Integer.toString(rand_num)+".png";
+    System.out.println(file_path);
+
+    // JFrame die_face_frame = new JFrame();
+
+    try
+    {
+      BufferedImage myPicture = ImageIO.read(new File(file_path));
+      textArea.insertIcon ( new ImageIcon ( myPicture ) );
+      add(newline);
+      // JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+      //
+      // die_face_frame.add(picLabel);
+      // die_face_frame.setVisible(true);
+      // die_face_frame.setSize(200,200);
+    }catch(IOException e)
+    {
+      System.out.println(e);
+    }
+    //FIXME: Add rand_num to the current roll, check if dest_location is achieved, then set it
+    current.setRoll(current.getRoll()+rand_num);
+    if(current.getDestRoll()<=current.getRoll())
+    {
+      current.setLocation(current.getDestLocation());
+      add("You are now in the "+current.getLocation()+newline, Color.red);
+      suggest(); //let's assume they want to accuse someone as soon as they get there.
+    }
+    else{
+      add("You have "+(current.getDestRoll()-current.getRoll())+" paces to get to the "+current.getDestLocation()+newline);
+    }
   }
   public static void suggest()
   {
@@ -383,6 +433,7 @@ class Game extends JPanel
         add(players.get(disprove_player).getName()+" disproved your solution."+newline);
         //FIXME: Add alibi here!
         add("This evidence has been marked in your notebook, press enter to end your turn."+newline, Color.red);
+        await_response();
         break;
       }
       else{
@@ -531,6 +582,7 @@ class Game extends JPanel
     //increment player id, or reset it to the first player
     while(unsolved)
     {
+      clear_screen();
       //FIXME: Maybe print previous player's turn?? Have an update buffer that prints here?
       Player current=players.get(current_player);
       add(newline+newline+"It is "+current.getName()+"\'s turn."+newline, Color.red);
@@ -545,6 +597,8 @@ class Game extends JPanel
       {
         current_player=0;
       }
+      add("Press enter to end your turn."+newline, Color.red);
+      await_response();
     }
   }
   public static void begin()

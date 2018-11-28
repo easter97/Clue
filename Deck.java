@@ -250,7 +250,7 @@ class Deck
     String room_list="";
     for(int i=0; i<const_room_deck.size(); i++)
     {
-      if(!const_room_deck.get(i).getName().equals(location) && !const_room_deck.get(i).getName().equals("Hall"))
+      if(!const_room_deck.get(i).getName().equals(location))
       {
         room_list+=const_room_deck.get(i).getName()+"\n";
       }

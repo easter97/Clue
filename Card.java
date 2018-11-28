@@ -84,27 +84,75 @@ class Weapon extends Card
 class Room extends Card
 {
   String passageway;
+  double row;
+  double column;
   public Room(String name)
   {
     super(name);
     if(name.equals("Kitchen"))
     {
       passageway="Study";
+      row=4;
+      column=3;
     }
     else if(name.equals("Study"))
     {
       passageway="Kitchen";
+      row=1;
+      column=1;
     }
     else if(name.equals("Lounge"))
     {
       passageway="Conservatory";
+      row=1;
+      column=3;
     }
     else if(name.equals("Conservatory"))
     {
       passageway="Lounge";
+      column=1;
+      row=4;
+    }
+    else if(name.equals("Hall"))
+    {
+      column=2;
+      row=1;
+      passageway=null;
+    }
+    else if(name.equals("Library"))
+    {
+      passageway=null;
+      column=1;
+      row=2;
+    }
+    else if(name.equals("Dining Room"))
+    {
+      passageway=null;
+      column=3;
+      row=2.5;
+    }
+    else if(name.equals("Billard Room"))
+    {
+      passageway=null;
+      column=1;
+      row=3;
+    }
+    else if(name.equals("Ballroom"))
+    {
+      passageway=null;
+      column=2;
+      row=4;
+    }
+    else if(name.equals("Grand Staircase"))
+    {
+      passageway=null;
+      column=2.5;
+      row=2;
     }
     else
     {
+      row=0;
+      column=0;
       passageway=null;
     }
   }
@@ -118,5 +166,12 @@ class Room extends Card
     {
       return null;
     }
+  }
+  public double getRow()
+  {
+    return row;
+  }
+  public double getCol(){
+    return column;
   }
 }
