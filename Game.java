@@ -271,6 +271,7 @@ class Game extends JPanel
     Random rand = new Random();
     int rand_num = rand.nextInt(6-1+1) + 1;
     String file_path = "die"+Integer.toString(rand_num)+".png";
+    new SoundClip("dice_roll.wav");
     System.out.println(file_path);
 
     // JFrame die_face_frame = new JFrame();
