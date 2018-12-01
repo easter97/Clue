@@ -20,6 +20,7 @@ class Game extends JPanel
 {
   public static ArrayList<Player> players= new ArrayList<Player>();
   public static ArrayList<String> possible_characters= new ArrayList<String>(Arrays.asList("Professor Plum", "Mrs. White", "Mrs. Scarlett","Mrs. Peacock","Colonel Mustard","Mr. Green"));
+  public static ArrayList<String> event_buffer = new ArrayList<String>();
   public static Deck d;
   public static int num_players;
   //we need this so the whole program knows who's turn it is
@@ -262,6 +263,7 @@ class Game extends JPanel
       //You haven't rolled yet
       choose_room();
     }
+
     add("You need "+(current.getDestRoll()-current.getRoll())+" paces to get to the "+current.getDestLocation()+newline);
 
     ArrayList<Integer> die_faces = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6));
@@ -293,10 +295,13 @@ class Game extends JPanel
     {
       current.setLocation(current.getDestLocation());
       add("You are now in the "+current.getLocation()+newline, Color.red);
+      event_buffer.add(current.getName() + " rolled the dice for " + rand_num + " and arrived at the " + current.getDestLocation() + ".");
       suggest(); //let's assume they want to accuse someone as soon as they get there.
     }
     else{
       add("You have "+(current.getDestRoll()-current.getRoll())+" paces to get to the "+current.getDestLocation()+newline);
+      event_buffer.add(current.getName() + " rolled the dice for " + rand_num + " and is " + (current.getDestRoll()-current.getRoll()) + " spaces away from the " +
+      current.getDestLocation()+newline);
     }
   }
   public static void suggest()
@@ -371,6 +376,9 @@ class Game extends JPanel
     add(players.get(current_player).getName()+": I think it was "+suggested_murderer.getName()+" with the "+suggested_weapon.getName()+" in the "+suggested_room.getName()+newline, Color.blue);
     add("Now your fellow detectives will see if they can disprove your suggestion"+newline, Color.red);
 
+    event_buffer.add(players.get(current_player).getName() + " suggested " + suggested_murderer.getName() + " committed the murder with the " +  suggested_weapon.getName() +
+    " in the " + suggested_room.getName() + ".");
+
     while(disprove_player!=current_player)
     {
       if(disprove_player>=num_players)
@@ -431,6 +439,7 @@ class Game extends JPanel
         current_player=true_player;
         clear_screen();
         add(players.get(disprove_player).getName()+" disproved your solution."+newline);
+        event_buffer.add(players.get(disprove_player).getName() + " disproved " + players.get(current_player).getName() + "'s' suggestion.");
         //FIXME: Add alibi here!
         add("This evidence has been marked in your notebook, press enter to end your turn."+newline, Color.red);
         await_response();
@@ -571,6 +580,24 @@ class Game extends JPanel
       check_response(response);
     }
   }
+
+  public static void printEventBuffer(){
+    String name = players.get(current_player).getName();
+    String event;
+
+    for(int i = 0; i < event_buffer.size(); i++){
+      //if the event in buffer corresponds to current player's turn, remove it.
+      event = event_buffer.get(i);
+      if(event.substring(0, 5).equals(name.substring(0, 5))){
+        event_buffer.remove(i);
+        i--;
+      }
+      else{
+        add(event_buffer.get(i) + newline);
+      }
+    }
+  }
+
   public static void start_turns()
   {
     current_player=0;
@@ -584,6 +611,7 @@ class Game extends JPanel
     {
       clear_screen();
       //FIXME: Maybe print previous player's turn?? Have an update buffer that prints here?
+      printEventBuffer();
       Player current=players.get(current_player);
       add(newline+newline+"It is "+current.getName()+"\'s turn."+newline, Color.red);
       add("You are currently in the "+current.getLocation()+". What do you want to do next?"+newline);
