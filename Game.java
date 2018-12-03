@@ -44,6 +44,9 @@ class Game extends JPanel
     //FIXME: Return array of cards for each player or keep in class?
     has_begun=false;
     textArea.setEditable(false);
+    textArea.setFont(new Font("Serif", Font.PLAIN, 18));
+    textArea.setBackground(new Color(255, 255, 204));
+    toolBar.setBackground(new Color(0 ,102, 0));
 
     JScrollPane scrollPane = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,  JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     panel.add(toolBar,BorderLayout.PAGE_START);
@@ -91,8 +94,9 @@ class Game extends JPanel
     //d.show_notebook(current_player);
     JFrame notepad_frame = new JFrame();
     notepad_frame.setVisible(true);
-    notepad_frame.setSize(300,600);
+    notepad_frame.setSize(300,500);
     JTextPane padArea=new JTextPane();
+    padArea.setBackground(new Color(255,255,204));
     if(current_player==-1)
     {
       padArea.setText("You cannot view the detective notebook at this time");
@@ -272,7 +276,7 @@ class Game extends JPanel
     int rand_num = rand.nextInt(6-1+1) + 1;
     String file_path = "die"+Integer.toString(rand_num)+".png";
     new SoundClip("dice_roll.wav");
-    System.out.println(file_path);
+
 
     // JFrame die_face_frame = new JFrame();
 
@@ -296,6 +300,7 @@ class Game extends JPanel
     {
       current.setLocation(current.getDestLocation());
       add("You are now in the "+current.getLocation()+newline, Color.red);
+      current.setRoll(-1);
       event_buffer.add(current.getName() + " rolled the dice for " + rand_num + " and arrived at the " + current.getDestLocation() + ".");
       suggest(); //let's assume they want to accuse someone as soon as they get there.
     }
@@ -442,8 +447,7 @@ class Game extends JPanel
         add(players.get(disprove_player).getName()+" disproved your solution."+newline);
         event_buffer.add(players.get(disprove_player).getName() + " disproved " + players.get(current_player).getName() + "'s' suggestion.");
         //FIXME: Add alibi here!
-        add("This evidence has been marked in your notebook, press enter to end your turn."+newline, Color.red);
-        await_response();
+        add("This evidence has been marked in your notebook."+newline, Color.red);
         break;
       }
       else{
@@ -626,15 +630,18 @@ class Game extends JPanel
       {
         current_player=0;
       }
-      add("Press enter to end your turn."+newline, Color.red);
-      await_response();
+      if(unsolved)
+      {
+        add("Press enter to end your turn."+newline, Color.red);
+        await_response();
+      }
     }
   }
   public static void begin()
   {
     int index=-1;
     boolean valid_input=true;
-    add("How many players in your party? Enter 1 or 2"+newline);
+    add("How many players in your party? Enter a number from 2 to 6"+newline);
     String response=await_response();
     try
     {
@@ -649,7 +656,13 @@ class Game extends JPanel
        try
        {
          num_players=Integer.parseInt(response);
-         valid_input=true;
+         if(num_players>6 || num_players<2)
+         {
+           valid_input=false;
+         }
+         else{
+            valid_input=true;
+         }
        }
        catch (NumberFormatException e)
         {
@@ -694,17 +707,6 @@ class Game extends JPanel
     do_intro();
     start_turns();
 
-  }
-  public void print_help()
-  {
-    System.out.println("List of allowed actions: ");
-    System.out.println("(I) Instructions");
-    System.out.println("(H) Help");
-    System.out.println("(Q) End Game");
-  }
-  public static void instructions()
-  {
-    System.out.println("Here's how to play: ");
   }
   public static void main(String[] args) throws Exception {
     createAndShowGUI();

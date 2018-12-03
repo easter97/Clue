@@ -227,7 +227,7 @@ class Deck
       }
       notebook+="["+mark+"] "+room.getName()+"\n";
     }
-    notebook+="Weapons\n";
+    notebook+="\nWeapons\n";
     for(int i=0; i<const_weapon_deck.size(); i++)
     {
       Card weapon=const_weapon_deck.get(i);
