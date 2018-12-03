@@ -54,10 +54,16 @@ class Game extends JPanel
     toolBar.addSeparator(new Dimension(300, 0));
 
     JButton notepad = new JButton("Show Notebook");
+    JButton map = new JButton("Show Map");
 
     notepad.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             do_show_notebook();
+        }
+    });
+    map.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            do_show_map();
         }
     });
     field.addActionListener(new ActionListener() {
@@ -71,6 +77,7 @@ class Game extends JPanel
         }
     });
     toolBar.add(notepad);
+    toolBar.add(map);
     GridBagConstraints c = new GridBagConstraints();
       c.gridwidth = GridBagConstraints.REMAINDER;
       c.fill = GridBagConstraints.HORIZONTAL;
@@ -102,10 +109,33 @@ class Game extends JPanel
       padArea.setText("You cannot view the detective notebook at this time");
     }
     else{
-      padArea.setText(d.show_notebook(current_player));
+      Player current=players.get(current_player);
+      padArea.setText(d.show_notebook(current_player, current.getName()));
     }
     padArea.setEditable(false);
     notepad_frame.add(padArea);
+    //FIXME: this needs to redraw if left open
+  }
+  public void do_show_map()
+  {
+    //d.show_notebook(current_player);
+    JFrame map_frame = new JFrame();
+    map_frame.setVisible(true);
+    map_frame.setSize(500,509);
+    JTextPane mapArea=new JTextPane();
+    mapArea.setBackground(new Color(255,255,204));
+    String file_path="clue-board.jpg";
+    try
+    {
+      BufferedImage myPicture = ImageIO.read(new File(file_path));
+      mapArea.insertIcon ( new ImageIcon ( myPicture ) );
+    }catch(IOException e)
+    {
+      System.out.println(e);
+    }
+
+    mapArea.setEditable(false);
+    map_frame.add(mapArea);
     //FIXME: this needs to redraw if left open
   }
   public static void add(String s)
@@ -444,11 +474,11 @@ class Game extends JPanel
         d.disprove(true_player, disproven.get(index));
         current_player=true_player;
         clear_screen();
-        add(players.get(disprove_player).getName()+" disproved your solution."+newline);
+        add(players.get(disprove_player).getName()+" disproved your solution with"+disproven.get(index).getName()+"."+newline);
         event_buffer.add(players.get(disprove_player).getName() + " disproved " + players.get(current_player).getName() + "'s' suggestion.");
         //FIXME: Add alibi here!
         add("This evidence has been marked in your notebook."+newline, Color.red);
-        break;
+        return;
       }
       else{
         add(players.get(disprove_player).getName()+" can not disprove"+newline, Color.red);
@@ -562,11 +592,11 @@ class Game extends JPanel
     {
       roll();
     }
-    else if(response.equals("suggestion") && !current.getLocation().equals("Hall"))
+    else if(response.equals("suggestion") && !current.getLocation().equals("Hallway"))
     {
       suggest();
     }
-    else if(response.equals("accusation") && !current.getLocation().equals("Hall"))
+    else if(response.equals("accusation") && !current.getLocation().equals("Hallway"))
     {
      boolean result=accuse();
      if(result)
@@ -576,7 +606,19 @@ class Game extends JPanel
      }
      else{
        add("Incorrect Accusation");
+       players.remove(current_player);
+       if(players.size()<2)
+       {
+         unsolved=false;
+          add("Game Over");
+       }
      }
+    }
+    else if(response.equals("passageway") && current.getLocationRoom().getPassageway()!=null)
+    {
+      current.setLocation(current.getLocationRoom().getPassageway());
+      add("You are now in the "+current.getLocation()+"."+newline);
+      suggest();
     }
     else
     {
@@ -624,16 +666,16 @@ class Game extends JPanel
       response=await_response().toLowerCase();
       //Check response and do action
       check_response(response);
+      if(unsolved)
+      {
+        add("Press enter to end your turn."+newline, Color.red);
+        await_response();
+      }
       //Next Player logic
       current_player++;
       if(current_player>=num_players)
       {
         current_player=0;
-      }
-      if(unsolved)
-      {
-        add("Press enter to end your turn."+newline, Color.red);
-        await_response();
       }
     }
   }

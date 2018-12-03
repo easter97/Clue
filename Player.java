@@ -21,6 +21,10 @@ class Player
   {
     return location.getName();
   }
+  public Room getLocationRoom()
+  {
+    return location;
+  }
   public String getMoves()
   {
     String moves="";
@@ -35,7 +39,7 @@ class Player
       moves+="   - Roll\n";
       moves+="   - Suggestion\n";
       moves+="   - Accusation\n";
-      moves+="   - Secret Passageway to "+location.getPassageway()+"\n";
+      moves+="   - Secret Passageway to "+location.getPassageway()+"(Type \"Passageway\")\n";
     }
     else
     {

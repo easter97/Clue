@@ -194,11 +194,12 @@ class Deck
     }
     return null;
   }
-  public String show_notebook(int player_id)
+  public String show_notebook(int player_id, String player_name)
   {
     ArrayList<Card> current_deck=player_decks.get(player_id);
     String notebook="";
     String mark;
+    notebook+=player_name+"\'s Notebook\n\n";
     notebook+="\nPeople\n";
     for(int i=0; i<const_person_deck.size(); i++)
     {
