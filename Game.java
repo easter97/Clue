@@ -617,8 +617,11 @@ class Game extends JPanel
     else if(response.equals("passageway") && current.getLocationRoom().getPassageway()!=null)
     {
       current.setLocation(current.getLocationRoom().getPassageway());
-      add("You are now in the "+current.getLocation()+"."+newline);
-      suggest();
+      add("You are currently in the "+current.getLocation()+". What do you want to do next?"+newline);
+      add(current.getMoves()+newline);
+      response=await_response().toLowerCase();
+      //Check response and do action
+      check_response(response);
     }
     else
     {
