@@ -174,7 +174,16 @@ class Game extends JPanel
            frame.pack();
             frame.setSize(800, 800);
            frame.setVisible(true);
-           textArea.setText("Welcome to Clue!"+newline+"Enter 'Begin' to play or 'Instructions' to see gameplay instructions"+newline);
+           textArea.setText("\nWelcome to Clue!"+newline+"Enter 'Begin' to play or 'Instructions' to see gameplay instructions"+newline);
+           String file_path="Clue-Poster.png";
+           try
+           {
+             BufferedImage myPicture = ImageIO.read(new File(file_path));
+             textArea.insertIcon ( new ImageIcon ( myPicture ) );
+           }catch(IOException e)
+           {
+             System.out.println(e);
+           }
            String input=await_response();
            handleEvent(input);
        }
@@ -186,6 +195,16 @@ class Game extends JPanel
     if(input.equals("begin"))
     {
       begin();
+    }
+    else if(input.equals("instructions"))
+    {
+      add("To view your player's notebook, select the Show Notebook button in the toolbar."+newline);
+      add("To view your a map of the mansion, select the Show Map button in the toolbar."+newline);
+      add("To view your gain evidence during gameplay make a suggestion in the room you'd like to suggest."+newline);
+      add("To end the game, make an accusation at any place or time you'd like. Be careful, if you're wrong you're out of the game!"+newline);
+      add("Type \'Begin\' to begin the game"+newline, Color.red);
+      input=await_response();
+      handleEvent(input);
     }
   }
   public static String await_response()
