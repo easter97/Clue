@@ -39,7 +39,7 @@ class Player
       moves+="   - Roll\n";
       moves+="   - Suggestion\n";
       moves+="   - Accusation\n";
-      moves+="   - Secret Passageway to "+location.getPassageway()+"(Type \"Passageway\")\n";
+      moves+="   - Secret Passageway to "+location.getPassageway()+" (Type \"Passageway\")\n";
     }
     else
     {

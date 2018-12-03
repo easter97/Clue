@@ -369,6 +369,7 @@ class Game extends JPanel
     int disprove_player=current_player+1;
     boolean disproved=false;
 
+
     while( !valid_input )
     {
       add("Who do you think committed the murder?"+newline, Color.red);
@@ -493,8 +494,8 @@ class Game extends JPanel
         d.disprove(true_player, disproven.get(index));
         current_player=true_player;
         clear_screen();
-        add(players.get(disprove_player).getName()+" disproved your solution with"+disproven.get(index).getName()+"."+newline);
-        event_buffer.add(players.get(disprove_player).getName() + " disproved " + players.get(current_player).getName() + "'s' suggestion.");
+        add(players.get(disprove_player).getName()+" disproved your solution with "+disproven.get(index).getName()+"."+newline);
+        event_buffer.add(players.get(current_player).getName()+"\'s suggestion was disproved by "+players.get(disprove_player).getName());
         //FIXME: Add alibi here!
         add("This evidence has been marked in your notebook."+newline, Color.red);
         return;
