@@ -237,7 +237,7 @@ class Game extends JPanel
   public static void do_intro()
   {
     clear_screen();
-    String intro="You have arrived at the Tudor Mansion. Your host, suave playboy Mr. John Boddy, has met an untimely end- he's the victim of foul play. To win this game, you must determine the answer to these three questions: Who done it? Where? And with what Weapon?";
+    String intro="You have arrived at the Tudor Mansion. Your host, the elusive and prominent businessman Mr. John Boddy, has met an untimely end- he's the victim of foul play. To win this game, you must determine the answer to these three questions: Who done it? Where? And with what Weapon?";
     add(intro+newline);
     add("Upon arrival you take some time to examine your fellow dinner guests: "+newline+newline);
     for(int i=0; i<possible_characters.size(); i++)

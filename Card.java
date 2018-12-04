@@ -91,7 +91,34 @@ class Weapon extends Card
   public Weapon(String name)
   {
     super(name);
-  }
+    if(name.equals("Lead Pipe"))
+    {
+      bio="A lead pipe had been sitting outside one of the downstairs bathrooms in the mansion for a few days after the bathroom had sprung a leak, and the pipe had to be replaced. The eyesore was noted by the butler who had instructed the day before it be disposed of. The lead pipe was not the weapon that ended Mr. Boddy’s life. ";
+    }
+    else if(name.equals("Knife"))
+    {
+      bio="Upon the permission of the butler the dagger had been taking by one of the gardeners as he left the day prior to go hunt an hour away from Yorkshire. The dagger was not the weapon that ended Mr. Boddy’s life.";
+    }
+    else if(name.equals("Candlestick"))
+    {
+      bio=" As the dinner date approached all candlesticks had been removed from the grounds to be polished. The candlestick was not the weapon that ended Mr. Boddy’s life. ";
+    }
+    else if(name.equals("Revolver"))
+    {
+      bio=" Paranoid in recent weeks Mr. Boddy had all firearms locked away in a vault located in the cellar. This included his prized revolver. No one but him knew where the key was located. Mr. Boddy’s prized Colt M1911 revolver was not the weapon that ended Mr. Boddy’s life. ";
+    }
+    else if(name.equals("Rope"))
+    {
+      bio=" A terrible storm a week earlier had destroyed a portion of the fence surrounding the pasture adjacent to the estate. As such, the horses had to stabled inside, and the rope was taken there to tie them up. The rope was not the weapon that ended Mr. Boddy’s life. ";
+    }
+    else if(name.equals("Wrench"))
+    {
+      bio=" The estate next to the Tudor mansion was undergoing extensive renovation and a servant had come over a few days prior requested a wrench. The groundsman of the Tudor Mansion happily obliged. The wrench was not the weapon that ended Mr. Boddy’s life. ";
+    }
+    else{
+      bio= "That object didn't seem to be located in the masion at the time of the murder.";
+    }
+  }//end of super parenthesis
 }
 class Room extends Card
 {
@@ -106,54 +133,63 @@ class Room extends Card
       passageway="Study";
       row=4;
       column=3;
+      bio=" At the time of the murder the head chef and the rest of his team were in the kitchen diligently preparing tonight’s dinner rinsing plump heads of lettuce, stirring bubbling pots, and putting the final touches on pastries fresh from the oven. The murder did not happen in the kitchen.";
     }
     else if(name.equals("Study"))
     {
       passageway="Kitchen";
       row=1;
       column=1;
+      bio="Easily agitated and particularly fickle lately, Mr. Boddy had instructed the staff to completely renovate his personal study despite it being changed just two months prior. He also had his butler dispose of a handful of documents in the fire place of the study too. At the time of the murder the room was completely locked as the walls had just been painted. The murder did not happen in the Study.";
     }
     else if(name.equals("Lounge"))
     {
       passageway="Conservatory";
       row=1;
       column=3;
+      bio=" In the lounge at the time of the murder the porter desperately tried to catch Mr. Boddie’s two boisterous dachshunds. He knew he would be in a great deal of trouble if the energetic dogs were to escape to the same room as the guests. The lounge did not bear witness to the murder of Mr. Boddy.";
     }
     else if(name.equals("Conservatory"))
     {
       passageway="Lounge";
       column=1;
       row=4;
+      bio=" In preparation of the night’s event two of the groundskeepers found themselves in the conservatory. The glass room was filled with plants in terracotta pots blooming in a dazzling array of color. As their master took his last breath elsewhere in the mansion the men were cutting stems of blushing pink peonies, scarlet roses, golden colored marigolds, and ivory colored hydrangeas for a fresh floral arrangement to be placed on the dining room table. The conservatory did not bear witness to the murder of Mr. Boddy. ";
     }
     else if(name.equals("Hall"))
     {
       column=2;
       row=1;
       passageway=null;
+      bio="In the hall at the time of the murder the housekeeper sternly briefed the waiting staff on the expectations for serving the guests at tonight’s dinner. Tonight was to go on without so much as a single hitch. The hall did not bear witness to the murder of Mr. Boddy.";
     }
     else if(name.equals("Library"))
     {
       passageway=null;
       column=1;
       row=2;
+      bio="Maids scurried throughout the library as they frantically dusted every single book shelf. They were told a prominent professor was to attend the dinner to see the rare books in the collection of their Master, Mr. Boddy, and that a story was to be done about him afterward in the local news. The room had to be immaculate. The library did not bear witness to the murder of Mr. Boddy. ";
     }
     else if(name.equals("Dining Room"))
     {
       passageway=null;
       column=3;
       row=2.5;
+      bio="Knowing the master would be preoccupied with the dinner tonight some rambunctious younger servants had decided to sneak into the billiards room for a quick game. As Mr. Boddy was being murdered the young men were playing billiards. The billiards room did not bear witness to the murder of Mr. Boddy. ";
     }
     else if(name.equals("Billard Room"))
     {
       passageway=null;
       column=1;
       row=3;
+      bio="Knowing the master would be preoccupied with the dinner tonight some rambunctious younger servants had decided to sneak into the billiards room for a quick game. As Mr. Boddy was being murdered the young men were playing billiards. The billiards room did not bear witness to the murder of Mr. Boddy.";
     }
     else if(name.equals("Ballroom"))
     {
       passageway=null;
       column=2;
       row=4;
+      bio="A local band was setting up, and starting to warm up at the time of the murder as the festivities were set to move there after dinner. The ballroom did not bear witness to the murder of Mr. Boddy.";
     }
     else if(name.equals("Grand Staircase"))
     {
