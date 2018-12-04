@@ -245,6 +245,7 @@ class Game extends JPanel
       add(possible_characters.get(i)+", ");
       Person p=new Person(possible_characters.get(i));
       add(p.getBio()+newline+newline);
+      await_response();
       //FIXME: Press enter to continue, add second bio parts
     }
     add(newline+"You make note of each guests in your notebook. You can view this throughout the game by clicking the 'Show Notebook' button in your toolbar"+newline, Color.red);
@@ -495,6 +496,8 @@ class Game extends JPanel
         current_player=true_player;
         clear_screen();
         add(players.get(disprove_player).getName()+" disproved your solution with "+disproven.get(index).getName()+"."+newline);
+        //To output alibi for disproven card
+        add(disproven.get(index).getAlibi()+newline);
         event_buffer.add(players.get(current_player).getName()+"\'s suggestion was disproved by "+players.get(disprove_player).getName());
         //FIXME: Add alibi here!
         add("This evidence has been marked in your notebook."+newline, Color.red);

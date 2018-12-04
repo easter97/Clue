@@ -3,7 +3,9 @@ import java.util.*;
 class Card
 {
   public String name;
-  public String bio;
+  String bio;
+  String alibi="didn't do it";
+  String guilty;
   public boolean eliminated;
   public boolean solution;
 
@@ -32,16 +34,30 @@ class Card
   {
     return name;
   }
+  public String getBio()
+  {
+    return bio;
+  }
+  public String getAlibi()
+  {
+    return alibi;
+  }
+  public String getGuilty()
+  {
+    return guilty;
+  }
 }
 class Person extends Card
 {
-  String bio;
+
   public Person(String name)
   {
     super(name);
     if(name.equals("Mrs. Scarlett"))
     {
       bio="a sarcastic, egotistical madam of a secret escort service in Washington that wasn’t all that secret. She is in her twenties, attractive, blonde and cunning.";
+      alibi="was talking to the cook";
+      guilty="killed the guy";
     }
     else if(name.equals("Colonel Mustard"))
     {
@@ -67,11 +83,6 @@ class Person extends Card
     {
       bio="a real mysterious character.";
     }
-  }
-
-  public String getBio()
-  {
-    return bio;
   }
 }
 class Weapon extends Card
