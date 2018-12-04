@@ -56,29 +56,29 @@ class Person extends Card
     super(name);
     if(name.equals("Mrs. Scarlett"))
     {
-      bio="a sarcastic, egotistical madam of a secret escort service in Washington that wasn’t all that secret. She is in her twenties, attractive, blonde and cunning.";
-      alibi="was talking to the cook";
-      guilty="killed the guy";
+      bio="For as far back as Miss Scarlet could remember she was always being reminded of how beautiful she was. In her youth men found her curly and fiery red locks, porcelain skin, and piercing blue eyes haunting. She quickly learned she could leverage her beauty in helping get what she wanted in life, and that was precisely what she did when she married the wealthiest businessman in all of Yorkshire. Upon his death expecting to inherit his fortune Scarlett was shocked to find out he had instead left all of his fortune to his children from a previous marriage. She would come to find out it was Mr. Boddy who advised her late husband on doing this since they had only been married 5 years. As she aged her beauty was fading as wrinkles creased her once flawless and milky skin. Scarlett began to feel destitute. She was livid and intended to confront Mr. Boddy for his ruining her life.";
+      alibi="Angry Scarlett found herself in an intricate beaded floor length gown intent on accomplishing her mission at hand of getting even. However, as she entered into the estate her body trembled, and her head pounded. She had felt herself catching a fever the week earlier, but tried to ignore it. The fever today has seemed to reach a dizzying crescendo. As she walked in the estate she suddenly collapsed. As Mr. Boddy was taking his last breath Mr. Scarlett was being rushed by the governess and other servants to the nurses quarters. The murder remains on the loose. ";
+      guilty="She soon found Mr. Boddy and confronted him. Things quickly escalated when Mr. Boddy told her he knew she was little more than an opportunistic leach and was glad he convinced his friend to remove her from the will. Engraged she took the";
     }
     else if(name.equals("Colonel Mustard"))
     {
-      bio="a stubborn man but a weak-hearted individual. In his military days, he stole radio parts during the war and sold them on them on the black market to make extra cash.";
+      bio="In 1922 the destruction, and scars, of the Great War were still fresh in the minds of every Brit. Prior to the conflict in 1914 Colonel Mustard lived a relatively simple life, running the family business he inherited from his parents in town. A proud Englishman, the conflict resulted in Colonel Mustard leaving the only place he had ever known, his hometown of Yorkshire, for the trenches of France on the Western Front to serve in the Army. It had been 4 years since he’d returned home to Yorkshire and resumed running the family business. Tonight he found himself at the expansive Tudor Mansion, the dwellings of his secretive business rival Mr. Boddy for dinner. It was there he planned to confront him about claims Mr. Boddy had been bribing potential clients….";
     }
     else if(name.equals("Mrs. White"))
     {
-      bio="a pale and tragic widow who may or may not have murdered her five previous husbands. While she seems outwardly proper and quiet, inwardly she is dishonest and jealous.";
+      bio=" Mary Boddy in her youth, had always felt like the black sheep of her family. Her parents had always favored her older brother, John Boddy, and heralded him as the golden child. From the beginning she understood her place in life was to marry the boorish and callous Mr. White from the fellow prominent White family for practical purposes and not to challenge the status quo. Locked in a loveless marriage Mary yearned for more. That’s when she met Richard, her brother’s butler. Quickly their friendship evolved into a secret & torrid love affair. As her feelings for Richard grew she became filled with anger that her brother would never allow for her to leave her failing marriage, much less for a man of such low social standing.";
     }
     else if(name.equals("Mrs. Peacock"))
     {
-      bio="the talkative wife of a corrupt senator. Elegant and elderly; she wears a tiara giving her a queen-like demeanour. Rumour has it she assisted her husband in his political schemes by collecting bribes.";
+      bio="The aging Mrs. Peacock had always loved to be the center of attention. That meant knowing any and all of the gossip related to the residents of Yorkshire. But even she was shocked to hear rumors going around the town that Mr. Boddy, her husband’s longtime business partner, had began selling alcohol in America which had been locked in prohibition. She was equal parts shocked and amused, that the shrewd Mr. Boddy had potentially decided to undertake such a risky undertaking. It was a few minutes later that she realized if the claims were in fact true, and if Mr. Boddy was caught his selfish decision could destroy the reputation of not only her husband’s shared business, but their social standing as well. ";
     }
     else if(name.equals("Professor Plum"))
     {
-      bio="a psychiatrist who works with the World Health Organization. While he had a medical license, he does not practice medicine because he had his license revoked after improper conduct with one of his patients.";
+      bio="From a young age, William Plum had always been captivated with the laws that governed everyday life and society as a whole. Perhaps this is what led him to dedicate his life to upholding the law as a detective for the Yorkshire police force. Tonight he found himself at a lavish Estate posing as a English professor from Lancaster interested in the rare book collection of the prominent businessman and owner, Mr. Boddy. He was there to investigate claims that the elusive Mr. Boddy, a wealthy native of Yorkshire, had begun to illegally ship alcohol across the Atlantic, as Prohibition gripped the nation. As Plum walked the halls of the Estate he could fill himself fill up with seething anger. 30 years earlier, when he was only 14 he lost his beloved mother at the hands of his alcoholic father and his life was never the same.  He didn’t expect this case to stir up these emotions he had been so successful at holding back all these years.";
     }
     else if(name.equals("Mr. Green"))
     {
-      bio="a revered, questioned by many on whether he is a saint or sinner. Known for shady dealings on the stock market, he used this money to \"help\" the Church of England.";
+      bio="As it turns out, Reverend Green had many a reason to feel green with envy towards Mr. Boddy. Best friends all throughout their youth one day a young Mr. Green shared an invention idea with Mr. Boddy. Unbeknownst to him his once closest friend would betray him and later go on to pitch the idea to investors as his own, which would lead to Mr. Boddy amassing a fortune. The two hadn’t spoken since, and after years of anger and resentment Mr. Green eventually turned to the church to find peace... ";
     }
     else
     {
