@@ -42,8 +42,9 @@ class Card
   {
     return alibi;
   }
-  public String getGuilty()
+  public String getGuilty(Card murderer, Card weapon, Card Room)
   {
+    //String together your guilty spill here. Use murderer.getName() to get the string value to concatenate
     return guilty;
   }
 }

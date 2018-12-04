@@ -622,10 +622,12 @@ class Game extends JPanel
     else if(response.equals("accusation") && !current.getLocation().equals("Hallway"))
     {
      boolean result=accuse();
+     //Here is the end of the game logic!!!
      if(result)
      {
        unsolved=false;
        add("Game Over");
+       //Output guilty string here
      }
      else{
        add("Incorrect Accusation");
