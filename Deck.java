@@ -68,17 +68,17 @@ class Deck
       System.out.println(solution_deck.get(i).getName());
     }
   }
-  public String getMurderer()
+  public Card getMurderer()
   {
-    return solution_deck.get(0).getName();
+    return solution_deck.get(0);
   }
-  public String getRoom()
+  public Card getRoom()
   {
-    return solution_deck.get(1).getName();
+    return solution_deck.get(1);
   }
-  public String getWeapon()
+  public Card getWeapon()
   {
-    return solution_deck.get(2).getName();
+    return solution_deck.get(2);
   }
   public void deal()
   {
