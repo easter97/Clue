@@ -627,8 +627,8 @@ class Game extends JPanel
      if(result)
      {
        unsolved=false;
-       add(d.getMurderer().getGuilty(d.getMurderer(),d.getWeapon(),d.getRoom())+newline);
-       add("Game Over");
+       add(newline+current.getName()+": "+d.getMurderer().getGuilty(d.getMurderer(),d.getWeapon(),d.getRoom())+newline, Color.blue);
+       add(newline+"Congradulations! You solved the murder of one John Boddy. Thanks to your detective skills, you and your mischievious peers are safe.");
        //Output guilty string here
      }
      else{

@@ -13,7 +13,7 @@ class Deck
   public ArrayList<Person> const_person_deck= new ArrayList<Person>();
   public ArrayList<Weapon> const_weapon_deck= new ArrayList<Weapon>();
   public ArrayList<Room> const_room_deck= new ArrayList<Room>();
-  public ArrayList<String> people= new ArrayList<String>(Arrays.asList("Professor Plum", "Mrs. White", "Mrs. Scarlett","Mrs.Peacock","Colonel Mustard","Mr. Green"));
+  public ArrayList<String> people= new ArrayList<String>(Arrays.asList("Professor Plum", "Mrs. White", "Mrs. Scarlett","Mrs. Peacock","Colonel Mustard","Mr. Green"));
   public ArrayList<String> weapons=new ArrayList<String>(Arrays.asList("Lead Pipe","Knife","Candlestick","Revolver","Rope","Wrench"));
   public ArrayList<String> rooms=new ArrayList<String>(Arrays.asList("Conservatory","Billard Room", "Kitchen", "Library", "Study", "Hall", "Lounge", "Dining Room", "Ballroom"));
   public  ArrayList<ArrayList<Card>> player_decks = new ArrayList<ArrayList<Card>>();
