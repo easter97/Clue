@@ -90,7 +90,7 @@ class Person extends Card
     {
       bio="From a young age, William Plum had always been captivated with the laws that governed everyday life and society as a whole. Perhaps this is what led him to dedicate his life to upholding the law as a detective for the Yorkshire police force. Tonight he found himself at a lavish Estate posing as a English professor from Lancaster interested in the rare book collection of the prominent businessman and owner, Mr. Boddy. He was there to investigate claims that the elusive Mr. Boddy, a wealthy native of Yorkshire, had begun to illegally ship alcohol across the Atlantic, as Prohibition gripped the nation. As Plum walked the halls of the Estate he could fill himself fill up with seething anger. 30 years earlier, when he was only 14 he lost his beloved mother at the hands of his alcoholic father and his life was never the same.  He didn’t expect this case to stir up these emotions he had been so successful at holding back all these years.";
       alibi=" Professor Plum was on his way to meet Mr. Boddy when he noticed a gap in the floor underneath a rug. At the time of the murder as he stopped to take note of this abnormality Ava, the newly hired maid, observed the strange professor jotting down something in a notepad. The murderer remains on the loose. ";
-      guilty="The detective had just found a trap door covered by a rug. It led to a cellar filled with hundred of bottles of alcohol. His blood boiled as his late mother entered his mind once more. He knew a man with Mr. Boddie’s political connections would be let go with nothing more than a slap on the wrist. He had to take justice into his own hands. He took the ";
+      guilty="The detective had just found a trap door covered by a rug. It led to a cellar filled with hundred of bottles of alcohol. His blood boiled as his late mother entered his mind once more. He knew a man with Mr. Boddy’s political connections would be let go with nothing more than a slap on the wrist. He had to take justice into his own hands. He took the ";
       guilty_pt2 = " he found and killed Mr. Boddy in the ";
     }
     else if(name.equals("Mr. Green"))
@@ -167,7 +167,7 @@ class Room extends Card
       passageway="Conservatory";
       row=1;
       column=3;
-      alibi=" In the lounge at the time of the murder the porter desperately tried to catch Mr. Boddie’s two boisterous dachshunds. He knew he would be in a great deal of trouble if the energetic dogs were to escape to the same room as the guests. The lounge did not bear witness to the murder of Mr. Boddy.";
+      alibi=" In the lounge at the time of the murder the porter desperately tried to catch Mr. Boddy’s two boisterous dachshunds. He knew he would be in a great deal of trouble if the energetic dogs were to escape to the same room as the guests. The lounge did not bear witness to the murder of Mr. Boddy.";
     }
     else if(name.equals("Conservatory"))
     {
