@@ -496,8 +496,8 @@ class Game extends JPanel
         current_player=true_player;
         clear_screen();
         add(players.get(disprove_player).getName()+" disproved your solution with "+disproven.get(index).getName()+"."+newline);
+        add(players.get(disprove_player).getName()+": " +disproven.get(index).getAlibi()+newline);
         //To output alibi for disproven card
-        add(disproven.get(index).getAlibi()+newline);
         event_buffer.add(players.get(current_player).getName()+"\'s suggestion was disproved by "+players.get(disprove_player).getName());
         //FIXME: Add alibi here!
         add("This evidence has been marked in your notebook."+newline, Color.red);
@@ -626,6 +626,7 @@ class Game extends JPanel
      if(result)
      {
        unsolved=false;
+       add(accused_murderer.getGuilty(d.getMurderer(),d.getWeapon(),d.getRoom()));
        add("Game Over");
        //Output guilty string here
      }
