@@ -632,12 +632,12 @@ class Game extends JPanel
        //Output guilty string here
      }
      else{
-       add("Incorrect Accusation");
+       add("Incorrect Accusation"+newline+"Due to your lack of evidence, you've been removed from the mansion.", Color.red);
        players.remove(current_player);
        if(players.size()<2)
        {
          unsolved=false;
-          add("Game Over");
+          add("Unfortunately, the murderer escaped the mansion after your colleagues removal. Make sure you're certain before you make accusations!"+newline+"Game Over", Color.red);
        }
      }
     }
