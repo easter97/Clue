@@ -626,7 +626,7 @@ class Game extends JPanel
      if(result)
      {
        unsolved=false;
-       add(accused_murderer.getGuilty(d.getMurderer(),d.getWeapon(),d.getRoom()));
+       add(d.getMurderer().getGuilty(d.getMurderer(),d.getWeapon(),d.getRoom())+newline);
        add("Game Over");
        //Output guilty string here
      }

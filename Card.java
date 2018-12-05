@@ -45,10 +45,11 @@ class Card
   }
 
 
-  public String getGuilty(Card murderer, Card weapon, Card Room)
+  public String getGuilty(Card murderer, Card weapon, Card room)
   {
     //String together your guilty spill here. Use murderer.getName() to get the string value to concatenate
-    return guilty+" "+" and killed "+guilty_pt2+" with the "+weapon.getName()+" in the "+room.getName();
+    String story=guilty+weapon.getName()+guilty_pt2+room.getName();
+    return story;
   }
 }
 class Person extends Card
@@ -61,7 +62,7 @@ class Person extends Card
     {
       bio="For as far back as Miss Scarlet could remember she was always being reminded of how beautiful she was. In her youth men found her curly and fiery red locks, porcelain skin, and piercing blue eyes haunting. She quickly learned she could leverage her beauty in helping get what she wanted in life, and that was precisely what she did when she married the wealthiest businessman in all of Yorkshire. Upon his death expecting to inherit his fortune Scarlett was shocked to find out he had instead left all of his fortune to his children from a previous marriage. She would come to find out it was Mr. Boddy who advised her late husband on doing this since they had only been married 5 years. As she aged her beauty was fading as wrinkles creased her once flawless and milky skin. Scarlett began to feel destitute. She was livid and intended to confront Mr. Boddy for his ruining her life.";
       alibi="Angry Scarlett found herself in an intricate beaded floor length gown intent on accomplishing her mission at hand of getting even. However, as she entered into the estate her body trembled, and her head pounded. She had felt herself catching a fever the week earlier, but tried to ignore it. The fever today has seemed to reach a dizzying crescendo. As she walked in the estate she suddenly collapsed. As Mr. Boddy was taking his last breath Mr. Scarlett was being rushed by the governess and other servants to the nurses quarters. The murder remains on the loose. ";
-      guilty="She soon found Mr. Boddy and confronted him. Things quickly escalated when Mr. Boddy told her he knew she was little more than an opportunistic leach and was glad he convinced his friend to remove her from the will. Enraged she took the ";
+      guilty="She soon found Mr. Boddy and confronted him. Things quickly escalated when Mr. Boddy told her he knew she was little more than an opportunistic leech and was glad he convinced his friend to remove her from the will. Enraged she took the ";
       guilty_pt2 = " she found next to her, and took his life in the ";
     }
     else if(name.equals("Colonel Mustard"))
