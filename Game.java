@@ -628,16 +628,16 @@ class Game extends JPanel
      {
        unsolved=false;
        add(newline+current.getName()+": "+d.getMurderer().getGuilty(d.getMurderer(),d.getWeapon(),d.getRoom())+newline, Color.blue);
-       add(newline+"Congradulations! You solved the murder of one John Boddy. Thanks to your detective skills, you and your mischievious peers are safe.");
+       add(newline+"Congratulations! You solved the murder of one John Boddy. Thanks to your detective skills, you and your mischievious peers are safe.");
        //Output guilty string here
      }
      else{
-       add("Incorrect Accusation");
+       add("Incorrect Accusation"+newline+"Due to your lack of evidence, you've been removed from the mansion.", Color.red);
        players.remove(current_player);
        if(players.size()<2)
        {
          unsolved=false;
-          add("Game Over");
+          add("Unfortunately, the murderer escaped the mansion after your colleagues removal. Make sure you're certain before you make accusations!"+newline+"Game Over", Color.red);
        }
      }
     }
