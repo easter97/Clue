@@ -4,7 +4,7 @@ class Card
 {
   public String name;
   String bio;
-  String alibi="didn't do it";
+  String alibi;
   String guilty;
   public boolean eliminated;
   public boolean solution;
@@ -61,15 +61,25 @@ class Person extends Card
     if(name.equals("Mrs. Scarlett"))
     {
       bio="For as far back as Miss Scarlet could remember she was always being reminded of how beautiful she was. In her youth men found her curly and fiery red locks, porcelain skin, and piercing blue eyes haunting. She quickly learned she could leverage her beauty in helping get what she wanted in life, and that was precisely what she did when she married the wealthiest businessman in all of Yorkshire. Upon his death expecting to inherit his fortune Scarlett was shocked to find out he had instead left all of his fortune to his children from a previous marriage. She would come to find out it was Mr. Boddy who advised her late husband on doing this since they had only been married 5 years. As she aged her beauty was fading as wrinkles creased her once flawless and milky skin. Scarlett began to feel destitute. She was livid and intended to confront Mr. Boddy for his ruining her life.";
+<<<<<<< HEAD
       alibi="Angry Scarlett found herself in an intricate beaded floor length gown intent on accomplishing her mission at hand of getting even. However, as she entered into the estate her body trembled, and her head pounded. She had felt herself catching a fever the week earlier, but tried to ignore it. The fever today had seemed to reach a dizzying crescendo. As she walked in the estate she suddenly collapsed. As Mr. Boddy was taking his last breath Mr. Scarlett was being rushed by the governess and other servants to the nurse's quarters. The murder remains on the loose. ";
       guilty="Mrs. Scarlett soon found Mr. Boddy and confronted him. Things quickly escalated when Mr. Boddy told her he knew she was little more than an opportunistic leech and was glad he convinced his friend to remove her from the will. Enraged she took the ";
+=======
+      alibi="Angry Scarlett found herself in an intricate beaded floor length gown intent on accomplishing her mission at hand of getting even. However, as she entered into the estate her body trembled, and her head pounded. She had felt herself catching a fever the week earlier, but tried to ignore it. The fever today has seemed to reach a dizzying crescendo. As she walked in the estate she suddenly collapsed. As Mr. Boddy was taking his last breath Mr. Scarlett was being rushed by the governess and other servants to the nurses quarters. The murder remains on the loose. ";
+      guilty="Miss Scarlett found Mr. Boddy and confronted him. Things quickly escalated when Mr. Boddy told her he knew she was little more than an opportunistic leech and was glad he convinced his friend to remove her from the will. Enraged she took the ";
+>>>>>>> df7b51f5ebc6252d1b902827181b8e457b8fff2a
       guilty_pt2 = " she found next to her, and took his life in the ";
     }
     else if(name.equals("Colonel Mustard"))
     {
       bio="In 1922 the destruction, and scars, of the Great War were still fresh in the minds of every Brit. Prior to the conflict in 1914 Colonel Mustard lived a relatively simple life, running the family business he inherited from his parents in town. A proud Englishman, the conflict resulted in Colonel Mustard leaving the only place he had ever known, his hometown of Yorkshire, for the trenches of France on the Western Front to serve in the Army. It had been 4 years since he’d returned home to Yorkshire and resumed running the family business. Tonight he found himself at the expansive Tudor Mansion, the dwellings of his secretive business rival Mr. Boddy for dinner. It was there he planned to confront him about claims Mr. Boddy had been bribing potential clients….";
+<<<<<<< HEAD
       alibi=" On his way to locate Mr. Boddy Colonel Mustard ran into his former combat mate, now the personal chauffeur for Mr. Boddy, Edmund. As they reminisced about restless nights spent in France, Mr. Boddy was taking his last breaths. The murderer remains on the loose. ";
       guilty="Once he found Mr. Boddy Colonel Mustard confronted him with the fact he had heard from numerous sources that he was bribing people to do business with him, and a shouting match ensued. Mr. Boddy smuggly told the colonel the allegations were indeed true. But if Colonel Mustard tried to do anything about it he would use his political connections to destroy both him and his business once and for all. Enraged, he took the ";
+=======
+      alibi=" On his way to locate Mr. Boddy Colonel Mustard ran into his former combat mate, now the personal chauffeur for Mr. Boddy, Edmund. As they reminisced about restless nights spent in the France, Mr. Boddy was taking his last breaths. The murderer remains on the loose. ";
+      guilty="Once the colonel found Mr. Boddy, he confronted him and a shouting match ensued. Mr. Boddy smuggly told the colonel the allegations were true. But if Colonel Mustard tried to do anything about it he would use his political connections to destroy both him and his business. Enraged, he took the ";
+>>>>>>> df7b51f5ebc6252d1b902827181b8e457b8fff2a
       guilty_pt2 = " and killed his business rival in the ";
     }
     else if(name.equals("Mrs. White"))
@@ -90,7 +100,7 @@ class Person extends Card
     {
       bio="From a young age, William Plum had always been captivated with the laws that governed everyday life and society as a whole. Perhaps this is what led him to dedicate his life to upholding the law as a detective for the Yorkshire police department. Tonight he found himself at a lavish Estate posing as a English professor from Lancaster interested in the rare book collection of the prominent businessman and owner, Mr. Boddy. He was there to investigate claims that the elusive Mr. Boddy, a wealthy native of Yorkshire, had begun to illegally ship alcohol across the Atlantic, as Prohibition gripped the United States. As he walked the halls of the Estate he could fill himself fill up with seething anger. 30 years earlier, when he was only 14 he lost his beloved mother at the hands of his alcoholic father and his life was never the same. He didn’t expect this case to stir up the emotions he had been so successful at holding back all these years.";
       alibi=" Professor Plum was on his way to meet Mr. Boddy when he noticed a gap in the floor underneath a rug. At the time of the murder as he stopped to take note of this abnormality Ava, the newly hired maid, observed the strange professor jotting down something in a notepad. The murderer remains on the loose. ";
-      guilty="The detective had just found a trap door covered by a rug. It led to a cellar filled with hundred of bottles of alcohol. His blood boiled as his late mother entered his mind once more. He knew a man with Mr. Boddie’s political connections would be let go with nothing more than a slap on the wrist. He had to take justice into his own hands. He took the ";
+      guilty="The professor found a trap door covered by a rug. It led to a cellar filled with hundred of bottles of alcohol. His blood boiled as his late mother entered his mind once more. He knew a man with Mr. Boddy’s political connections would be let go with nothing more than a slap on the wrist. He had to take justice into his own hands. He took the ";
       guilty_pt2 = " he found and killed Mr. Boddy in the ";
     }
     else if(name.equals("Mr. Green"))
@@ -167,7 +177,7 @@ class Room extends Card
       passageway="Conservatory";
       row=1;
       column=3;
-      alibi=" In the lounge at the time of the murder the porter desperately tried to catch Mr. Boddie’s two boisterous dachshunds. He knew he would be in a great deal of trouble if the energetic dogs were to escape to the same room as the guests. The lounge did not bear witness to the murder of Mr. Boddy.";
+      alibi=" In the lounge at the time of the murder the porter desperately tried to catch Mr. Boddy’s two boisterous dachshunds. He knew he would be in a great deal of trouble if the energetic dogs were to escape to the same room as the guests. The lounge did not bear witness to the murder of Mr. Boddy.";
     }
     else if(name.equals("Conservatory"))
     {

@@ -245,6 +245,7 @@ class Game extends JPanel
       add(possible_characters.get(i)+", ");
       Person p=new Person(possible_characters.get(i));
       add(p.getBio()+newline+newline);
+      add("Press enter to learn more..."+newline, Color.red);
       await_response();
       //FIXME: Press enter to continue, add second bio parts
     }
@@ -496,7 +497,7 @@ class Game extends JPanel
         current_player=true_player;
         clear_screen();
         add(players.get(disprove_player).getName()+" disproved your solution with "+disproven.get(index).getName()+"."+newline);
-        add(players.get(disprove_player).getName()+": " +disproven.get(index).getAlibi()+newline);
+        add(players.get(disprove_player).getName()+": " +disproven.get(index).getAlibi()+newline, Color.blue);
         //To output alibi for disproven card
         event_buffer.add(players.get(current_player).getName()+"\'s suggestion was disproved by "+players.get(disprove_player).getName());
         //FIXME: Add alibi here!
@@ -626,8 +627,8 @@ class Game extends JPanel
      if(result)
      {
        unsolved=false;
-       add(d.getMurderer().getGuilty(d.getMurderer(),d.getWeapon(),d.getRoom())+newline);
-       add("Game Over");
+       add(newline+current.getName()+": "+d.getMurderer().getGuilty(d.getMurderer(),d.getWeapon(),d.getRoom())+newline, Color.blue);
+       add(newline+"Congradulations! You solved the murder of one John Boddy. Thanks to your detective skills, you and your mischievious peers are safe.");
        //Output guilty string here
      }
      else{
@@ -772,7 +773,7 @@ class Game extends JPanel
          }
       }
       players.add(new Player(possible_characters.get(index-1), i));
-      possible_characters.remove(index-1);
+      // possible_characters.remove(index-1);
     }
     add(response+" players"+newline);
     do_intro();
