@@ -68,6 +68,18 @@ class Deck
       System.out.println(solution_deck.get(i).getName());
     }
   }
+  public String getMurderer()
+  {
+    return solution_deck.get(0).getName();
+  }
+  public String getRoom()
+  {
+    return solution_deck.get(1).getName();
+  }
+  public String getWeapon()
+  {
+    return solution_deck.get(2).getName();
+  }
   public void deal()
   {
     for(int i=0; i<person_deck.size(); i++)
