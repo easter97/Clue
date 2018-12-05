@@ -374,6 +374,7 @@ class Game extends JPanel
 
     while( !valid_input )
     {
+      new SoundClip("alert.wav");
       add("Who do you think committed the murder?"+newline, Color.red);
       add(d.show_people());
       String input=await_response();
@@ -496,6 +497,7 @@ class Game extends JPanel
         d.disprove(true_player, disproven.get(index));
         current_player=true_player;
         clear_screen();
+        new SoundClip("negative.wav");
         add(players.get(disprove_player).getName()+" disproved your solution with "+disproven.get(index).getName()+"."+newline);
         add(players.get(disprove_player).getName()+": " +disproven.get(index).getAlibi()+newline, Color.blue);
         //To output alibi for disproven card
@@ -637,6 +639,7 @@ class Game extends JPanel
        if(players.size()<2)
        {
          unsolved=false;
+         new SoundClip("game_over.wav");
           add("Unfortunately, the murderer escaped the mansion after your colleagues removal. Make sure you're certain before you make accusations!"+newline+"Game Over", Color.red);
        }
      }
@@ -688,6 +691,7 @@ class Game extends JPanel
     {
       clear_screen();
       //FIXME: Maybe print previous player's turn?? Have an update buffer that prints here?
+      new SoundClip("turn_change.wav");
       printEventBuffer();
       Player current=players.get(current_player);
       add(newline+newline+"It is "+current.getName()+"\'s turn."+newline, Color.red);
